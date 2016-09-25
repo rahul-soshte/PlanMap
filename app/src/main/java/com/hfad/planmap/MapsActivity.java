@@ -9,6 +9,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.LatLngBounds;
+import  java.io.Console;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -39,8 +41,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng Chembur = new LatLng(19.062053,72.883436);
+        LatLng Mulund = new LatLng(19.172554,72.942554);
+        LatLng Dadar = new LatLng(19.021324,72.842418);
+        LatLng CST= new LatLng(18.941067,72.836639);
+        mMap.addMarker(new MarkerOptions().position(Chembur).title("Chembur"));
+        mMap.addMarker(new MarkerOptions().position(Mulund).title("Mulund"));
+        mMap.addMarker(new MarkerOptions().position(Dadar).title("Dadar"));
+        mMap.addMarker(new MarkerOptions().position(CST).title("CST"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(Chembur));
+
+
     }
+    /*
+    @function Shows the center of multiple locations
+    @param locations[][]
+    contains the latitudes and longitudes of locations
+     */
+
 }
+
+
