@@ -7,14 +7,18 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+//import java.util.*;------>For using vectors
+
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.LatLngBounds;
-import  java.io.Console;
+//where is the console?----------------------->import  java.io.Console;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
+ //   Vector locations=new Vector();
+    
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,15 +54,84 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(Dadar).title("Dadar"));
         mMap.addMarker(new MarkerOptions().position(CST).title("CST"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Chembur));
+//Vector locations=new Vector();
 
+            //getcenter
+
+
+//LatLng //getcenter
+            LatLngBounds bound = new LatLngBounds(CST,Mulund);
+
+
+                bound.including(Chembur);
+        bound.including( Dadar );
+
+
+        // OTHER CODE
+
+//LatLng object
+            LatLng centroid;
+
+
+                    centroid=bound.getCenter();
+            mMap.addMarker(new MarkerOptions().position(centroid).title("Centroid"));
+
+            //Vector to store the LatLng object
+            //Vector locations=new Vector();
+            //locations.addElement(LatLng);
+            //LatLng Centroid= new LatLng();
+            //Centroid=bound.getCenter();
+            //mMap.addMarker(new MarkerOptions().position(Centroid).title("Centroid"));
+
+            //Vector to store the LatLng object
+            //Vector locations=new Vector(LatLng);
+            //locations.addElement(LatLng);
+        }
 
     }
+
     /*
     @function Shows the center of multiple locations
     @param locations[][]
     contains the latitudes and longitudes of locations
      */
+    /*
+public void showCenter(Vector locations){
+    //getcenter
+    int i;
 
+    LatLngBounds bound = new LatLngBounds();
+
+    for (i = 0; i < locations.length; i++) {
+        bound.extend( new LatLng(locations[i][2], locations[i][3]) );
+
+        // OTHER CODE
+    }
+//LatLng //getcenter
+LatLngBounds bound = new LatLngBounds();
+
+for (i = 0; i < locations.length; i++) {
+  bound.extend( new LatLng(locations[i][2], locations[i][3]) );
+
+  // OTHER CODE
 }
+//LatLng object
+ LatLng Centroid= new LatLng();
+Centroid=bound.getCenter();
+ mMap.addMarker(new MarkerOptions().position(Centroid).title("Centroid"));
+
+ //Vector to store the LatLng object
+ Vector locations=new Vector();
+locations.addElement(LatLng);
+    LatLng Centroid= new LatLng();
+    Centroid=bound.getCenter();
+    mMap.addMarker(new MarkerOptions().position(Centroid).title("Centroid"));
+
+    //Vector to store the LatLng object
+    Vector locations=new Vector(LatLng);
+    locations.addElement(LatLng);
+}*/
+
+//}
 
 
