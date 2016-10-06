@@ -1,7 +1,15 @@
 package com.hfad.planmap;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
+import android.widget.EditText;
+import android.view.View;
+
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -12,6 +20,9 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.LatLngBounds;
+
+import java.io.IOException;
+import java.util.List;
 //where is the console?----------------------->import  java.io.Console;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
@@ -29,7 +40,24 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
     }
+    public void onMapSearch(View view) {
+        EditText locationSearch = (EditText) findViewById(R.id.editText);
+        String location = locationSearch.getText().toString();
+        List<Address> addressList = null;
+        if ( location!= null || !location.equals("")) {
+Geocoder geocoder=new Geocoder(this);
+            try{
+                addressList=geocoder.getFromLocationName(location, 1);
 
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+             Address address=addressList.get(0);
+            LatLng latLng=new LatLng(address.getLatitude(),address.getLongitude());
+            mMap.addMarker(new MarkerOptions().position(latLng).title("Marker"));
+            mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        }
+    }
 
     /**
      * Manipulates the map once available.
@@ -45,48 +73,49 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng Chembur = new LatLng(19.062053,72.883436);
-        LatLng Mulund = new LatLng(19.172554,72.942554);
-        LatLng Dadar = new LatLng(19.021324,72.842418);
-        LatLng CST= new LatLng(18.941067,72.836639);
+        LatLng Chembur = new LatLng(19.062053, 72.883436);
+        LatLng Mulund = new LatLng(19.172554, 72.942554);
+        LatLng Dadar = new LatLng(19.021324, 72.842418);
+        LatLng CST = new LatLng(18.941067, 72.836639);
         mMap.addMarker(new MarkerOptions().position(Chembur).title("Chembur"));
         mMap.addMarker(new MarkerOptions().position(Mulund).title("Mulund"));
         mMap.addMarker(new MarkerOptions().position(Dadar).title("Dadar"));
         mMap.addMarker(new MarkerOptions().position(CST).title("CST"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(Chembur));
-//Vector locations=new Vector();
 
-            //getcenter
-
-
-//LatLng //getcenter
-            LatLngBounds bound = new LatLngBounds(CST,Mulund);
+        LatLngBounds bound = new LatLngBounds(CST, Mulund);
 
 
-                bound.including(Chembur);
-        bound.including( Dadar );
+        bound.including(Chembur);
+        bound.including(Dadar);
+
+        LatLng centroid;
 
 
-        // OTHER CODE
-
-//LatLng object
-            LatLng centroid;
-
-
-                    centroid=bound.getCenter();
-            mMap.addMarker(new MarkerOptions().position(centroid).title("Centroid"));
-
-            //Vector to store the LatLng object
-            //Vector locations=new Vector();
-            //locations.addElement(LatLng);
-            //LatLng Centroid= new LatLng();
-            //Centroid=bound.getCenter();
-            //mMap.addMarker(new MarkerOptions().position(Centroid).title("Centroid"));
-
-            //Vector to store the LatLng object
-            //Vector locations=new Vector(LatLng);
-            //locations.addElement(LatLng);
+        centroid = bound.getCenter();
+        mMap.addMarker(new MarkerOptions().position(centroid).title("Centroid"));
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            return;
         }
+mMap.setMyLocationEnabled(true);
+
+//Vector locations=new Vector();
+// getcenter
+//LatLng //getcenter
+// OTHER CODE
+//LatLng object
+        //Vector to store the LatLng object
+        //Vector locations=new Vector();
+        //locations.addElement(LatLng);
+        //LatLng Centroid= new LatLng();
+        //Centroid=bound.getCenter();
+        //mMap.addMarker(new MarkerOptions().position(Centroid).title("Centroid"));
+
+        //Vector to store the LatLng object
+        //Vector locations=new Vector(LatLng);
+        //locations.addElement(LatLng);
+    }
+
 
     }
 
