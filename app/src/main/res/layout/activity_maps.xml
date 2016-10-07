@@ -3,7 +3,25 @@
     android:layout_height="wrap_content"
     android:orientation="vertical" >
 
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="#000000"
+        android:typeface="sans"
+        android:fontFamily="sans-serif-medium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:background="#800080"
+        android:onClick="onFindCenter"
+        android:text="Centroid"
+        android:textStyle="normal|italic"
+        />
+
+
     <LinearLayout
+        android:text="Centroid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="5dp"
@@ -32,5 +50,14 @@ android:text="Search" />
     android:name="com.google.android.gms.maps.SupportMapFragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.hfad.planmap.MapsActivity" />
+    tools:context="com.hfad.planmap.MapsActivity"
+    />
+
+
+
+
+
+
+
+
 </LinearLayout>

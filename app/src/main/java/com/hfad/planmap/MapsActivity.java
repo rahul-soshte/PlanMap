@@ -58,6 +58,11 @@ Geocoder geocoder=new Geocoder(this);
             mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
         }
     }
+public void onFindCenter(View view)
+{
+
+}
+
 
     /**
      * Manipulates the map once available.
@@ -88,7 +93,6 @@ Geocoder geocoder=new Geocoder(this);
 
         bound.including(Chembur);
         bound.including(Dadar);
-
         LatLng centroid;
 
 
